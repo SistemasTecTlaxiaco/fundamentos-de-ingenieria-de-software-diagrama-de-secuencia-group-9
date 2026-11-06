@@ -1,0 +1,238 @@
+{
+  "practica": "Práctica 10 · Modelo de dominio y diagramas de secuencia",
+  "carpeta": "entrega",
+  "nombres": [
+    "practica-10.md",
+    "practica-10.pdf"
+  ],
+  "imagenes_minimas": 4,
+  "imagenes_en": [
+    "docs/analisis/*.png",
+    "entrega/img/*.png"
+  ],
+  "archivos_requeridos": [],
+  "archivos_recomendados": [
+    "modelo/*.qea"
+  ],
+  "secciones": [
+    {
+      "criterio": "1. Conceptos del dominio",
+      "titulo": "Conceptos del dominio",
+      "min_palabras": 40,
+      "comprobaciones": [
+        {
+          "patron": "(glosario|organizacion|vocabulario|como lo dicen)",
+          "min": 1,
+          "mensaje": "Expliquen de dónde sale cada concepto y cómo lo nombra la organización."
+        }
+      ],
+      "prohibido": [
+        {
+          "patron": "^\\s*\\|?\\s*(pantalla|controlador|base ?de ?datos|interfaz)\\w*\\s*\\|",
+          "mensaje": "Aparece una clase de software en la tabla de conceptos; el dominio solo lleva conceptos de la organización."
+        }
+      ]
+    },
+    {
+      "criterio": "2. Atributos y asociaciones del dominio",
+      "titulo": "Atributos y asociaciones del dominio",
+      "min_palabras": 20,
+      "comprobaciones": [
+        {
+          "patron": "(\\d|\\*)\\s*\\.\\.\\s*(\\d+|\\*|n)\\b|(\\d|\\*)\\s*\\.\\.\\s*\\*",
+          "min": 2,
+          "mensaje": "Escriban la multiplicidad de las asociaciones, como 1..* o 0..1 (al menos 2)."
+        }
+      ],
+      "prohibido": [
+        {
+          "patron": "\\b[a-z]\\w*\\s*\\([^)\\n]*\\)",
+          "mensaje": "Parece haber operaciones; el modelo de dominio no lleva operaciones."
+        }
+      ]
+    },
+    {
+      "criterio": "3. Escenarios tomados de los casos de uso",
+      "titulo": "Escenarios",
+      "min_palabras": 30,
+      "comprobaciones": [
+        {
+          "patron": "\\bcu[-_ ]?\\d+",
+          "min": 2,
+          "mensaje": "Indiquen el caso de uso de cada diagrama, como CU-01 (al menos 2)."
+        },
+        {
+          "patron": "flujo (principal|basico)",
+          "min": 1,
+          "mensaje": "Indiquen qué diagrama sigue el flujo principal."
+        },
+        {
+          "patron": "(alterno|alternativo|excepcion)",
+          "min": 1,
+          "mensaje": "Indiquen qué flujo alterno se modela."
+        }
+      ]
+    },
+    {
+      "criterio": "4. Estructura de la secuencia",
+      "titulo": "Diagramas de secuencia",
+      "min_palabras": 30,
+      "comprobaciones": [
+        {
+          "patron": "frontera",
+          "min": 1,
+          "mensaje": "Identifiquen la clase frontera de cada diagrama."
+        },
+        {
+          "patron": "control",
+          "min": 1,
+          "mensaje": "Identifiquen la clase control de cada diagrama."
+        },
+        {
+          "patron": "entidad",
+          "min": 1,
+          "mensaje": "Identifiquen las clases entidad de cada diagrama."
+        }
+      ]
+    },
+    {
+      "criterio": "5. Fragmentos combinados",
+      "titulo": "Fragmentos",
+      "min_palabras": 15,
+      "comprobaciones": [
+        {
+          "patron": "\\b(alt|opt|loop)\\b",
+          "min": 1,
+          "mensaje": "Indiquen qué fragmento usaron (alt, opt o loop)."
+        },
+        {
+          "patron": "\\[[^\\]\\n]*(<|>|≤|≥|=|else|si |no |sin |hay )[^\\]\\n]*\\]",
+          "min": 1,
+          "mensaje": "Escriban la condición de guarda entre corchetes, como [kilos ≤ 0] o [else]."
+        }
+      ]
+    },
+    {
+      "criterio": "6. Consistencia con el diagrama de clases",
+      "titulo": "Consistencia con el diagrama de clases",
+      "min_palabras": 30,
+      "comprobaciones": [
+        {
+          "patron": "\\b[a-z]\\w*\\s*\\([^)\\n]*\\)",
+          "min": 3,
+          "mensaje": "Listen los mensajes con la operación de la clase que los recibe, como sumar(kilos) en Inventario (al menos 3)."
+        }
+      ]
+    },
+    {
+      "criterio": "7. Integración de negocio y requisitos",
+      "titulo": "Integracion de negocio y requisitos",
+      "min_palabras": 60,
+      "comprobaciones": [
+        {
+          "patron": "bpmn",
+          "min": 1,
+          "mensaje": "Expliquen cómo el orden de los mensajes sigue al BPMN mejorado."
+        },
+        {
+          "patron": "\\b(rf|rnf|rd)[-_ ]?\\d+",
+          "min": 3,
+          "mensaje": "Citen el requisito de origen de los elementos (al menos 3)."
+        },
+        {
+          "patron": "(caso de uso|\\bcu[-_ ]?\\d+)",
+          "min": 1,
+          "mensaje": "Liguen los modelos con los casos de uso."
+        }
+      ]
+    },
+    {
+      "criterio": "8. Modelo de arquitectura en UML",
+      "titulo": "Modelo de arquitectura",
+      "min_palabras": 30,
+      "comprobaciones": [
+        {
+          "patron": "presentacion",
+          "min": 1,
+          "mensaje": "Falta la capa de Presentación."
+        },
+        {
+          "patron": "aplicacion",
+          "min": 1,
+          "mensaje": "Falta la capa de Aplicación / API."
+        },
+        {
+          "patron": "dominio",
+          "min": 1,
+          "mensaje": "Falta la capa de Dominio."
+        },
+        {
+          "patron": "integracion",
+          "min": 1,
+          "mensaje": "Falta la capa de Integración."
+        },
+        {
+          "patron": "(simulad|demostraci|testnet)",
+          "min": 1,
+          "aviso": true,
+          "mensaje": "Marquen qué es real y qué está simulado."
+        }
+      ]
+    },
+    {
+      "criterio": "9. Presentación y validación con la organización",
+      "titulo": "Validacion con la organizacion",
+      "min_palabras": 50,
+      "comprobaciones": [
+        {
+          "patron": "(\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}|\\d{1,2} de (enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre))",
+          "min": 1,
+          "mensaje": "Anoten la fecha de la presentación."
+        },
+        {
+          "patron": "(minuta|acta)",
+          "min": 1,
+          "mensaje": "Incluyan la minuta de la presentación."
+        },
+        {
+          "patron": "(aprob|conformidad|validad)",
+          "min": 1,
+          "mensaje": "Registren si la organización aprobó el modelo."
+        },
+        {
+          "patron": "(cambi|ajust|correg)",
+          "min": 1,
+          "mensaje": "Anoten qué cambió después de escuchar a la organización (o que no hubo cambios)."
+        }
+      ]
+    },
+    {
+      "criterio": "10. Entrega, revisión cruzada y trabajo en equipo",
+      "titulo": "Revision cruzada",
+      "min_palabras": 30,
+      "comprobaciones": [
+        {
+          "patron": "(observ|reviso|revisor|coment|senal)",
+          "min": 1,
+          "mensaje": "Anoten las observaciones que hizo el equipo revisor."
+        },
+        {
+          "patron": "(corregi|justific|cambi|atend)",
+          "min": 1,
+          "mensaje": "Anoten qué corrigieron o justificaron por cada observación."
+        },
+        {
+          "patron": "#\\d+",
+          "min": 2,
+          "mensaje": "Indiquen con su número qué pull requests abrió y revisó cada integrante (por ejemplo, #3)."
+        },
+        {
+          "patron": "consistencia",
+          "min": 1,
+          "aviso": true,
+          "mensaje": "Indiquen que se usó la lista de consistencia."
+        }
+      ]
+    }
+  ]
+}

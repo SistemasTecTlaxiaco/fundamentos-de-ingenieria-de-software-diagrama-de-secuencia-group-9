@@ -1,0 +1,48 @@
+name: Validar entrega
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validar-entrega:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar lector de PDF
+        run: |
+          command -v pdftotext >/dev/null || sudo apt-get install -y -qq poppler-utils \
+            || (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils)
+
+      - name: Revisar la entrega contra la rúbrica
+        id: revision
+        continue-on-error: true
+        run: python3 .github/validacion/validar_entrega.py --reglas .github/validacion/reglas.json --salida reporte.md
+
+      - name: Comentar el resultado en el pull request
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          ID=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
+                --jq '.[] | select(.body | startswith("<!-- validar-entrega -->")) | .id' | head -n 1)
+          if [ -n "$ID" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$ID" -F body=@reporte.md >/dev/null
+          else
+            gh api "repos/$REPO/issues/$PR/comments" -F body=@reporte.md >/dev/null
+          fi
+
+      - name: Resultado
+        if: steps.revision.outcome == 'failure'
+        run: |
+          echo "::error::Falta información que pide la rúbrica. Revisen el comentario del pull request."
+          exit 1
