@@ -1,4 +1,5 @@
 name: Validar entrega
+# Versión 2 · revisión flexible: cualquier PDF, Word o Markdown en entrega/, con títulos libres.
 
 on:
   pull_request:
@@ -24,6 +25,8 @@ jobs:
       - name: Revisar la entrega contra la rúbrica
         id: revision
         continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: python3 .github/validacion/validar_entrega.py --reglas .github/validacion/reglas.json --salida reporte.md
 
       - name: Comentar el resultado en el pull request
@@ -44,5 +47,5 @@ jobs:
       - name: Resultado
         if: steps.revision.outcome == 'failure'
         run: |
-          echo "::error::Falta información que pide la rúbrica. Revisen el comentario del pull request."
+          echo "::error::La entrega tiene un punto que bloquea la fusión (falta el documento o el diagrama, o hay datos personales). Revisen el comentario del pull request."
           exit 1

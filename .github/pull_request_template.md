@@ -1,10 +1,11 @@
 ## ¿Qué cambia este pull request?
 
-<!-- Una o dos líneas. -->
+<!-- Una o dos líneas. Si es la entrega, digan qué documento subieron. -->
+
 
 ## Autoevaluación con la rúbrica (Práctica 10)
 
-Marquen solo lo que ya cumplen. El robot revisa que la información esté; la rúbrica juzga si está bien.
+Marquen solo lo que ya cumplen. El robot busca la evidencia en su documento (cualquier nombre y cualquier título); la rúbrica (`RUBRICA.md` del repositorio) juzga si está bien.
 
 - [ ] 1. Los conceptos del dominio usan las palabras de la organización; no hay clases de software
 - [ ] 2. El dominio no tiene operaciones ni tipos; cada asociación tiene nombre y multiplicidad
