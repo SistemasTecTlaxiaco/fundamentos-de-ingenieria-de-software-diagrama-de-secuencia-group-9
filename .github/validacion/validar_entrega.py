@@ -192,10 +192,14 @@ def elegir_entrega(regla):
         texto, imgs, avisos = leer(ruta)
         leidos.append((palabras(texto), ruta, texto, imgs, avisos))
     if not leidos:
-        return None, []
+        return None, [], []
     leidos.sort(key=lambda x: (-x[0], x[1]))
     otros = [l[1] for l in leidos[1:] if l[0] >= regla.get("palabras_minimas_entrega", 150)]
-    return leidos[0], otros
+    # PDF o Word con contenido pero sin texto que se pueda leer (exportado como imagen,
+    # escaneado o con letras convertidas en trazos, como algunos de Canva).
+    sin_texto = [l[1] for l in leidos if l[0] < 20 and l[1].lower().endswith((".pdf", ".docx"))
+                 and os.path.getsize(l[1]) > 50_000]
+    return leidos[0], otros, sin_texto
 
 
 # ----------------------------------------------------------------------------
@@ -387,8 +391,16 @@ def main():
            "> Esta revisión **no califica**. Busca en su entrega la evidencia de cada criterio de la rúbrica, "
            "sin importar el nombre del archivo ni los títulos que usen. La calificación la pone el docente con la rúbrica.", ""]
 
-    elegido, otros = elegir_entrega(regla)
+    elegido, otros, sin_texto = elegir_entrega(regla)
     minimo = regla.get("palabras_minimas_entrega", 150)
+    if (not elegido or elegido[0] < minimo) and sin_texto:
+        out.append(f"⚠️ **Revisión manual:** encontré {', '.join('`' + x + '`' for x in sin_texto)}, pero no tiene texto que se pueda leer "
+                   "(se exportó como imagen, está escaneado o las letras quedaron como dibujos, como pasa con algunos diseños de Canva).")
+        out.append("")
+        out.append("La entrega **sí cuenta** y no se bloquea: el docente la revisa a mano con la rúbrica. "
+                   "Si pueden, vuelvan a exportarla desde Word o Google Docs con **Guardar como PDF** para que el robot también la lea.")
+        escribir(args.salida, out)
+        return 0
     if not elegido or elegido[0] < minimo:
         donde = f"`{elegido[1]}` está vacío o casi vacío ({elegido[0]} palabras)" if elegido else "no encontré ningún PDF, Word o Markdown"
         out.append(f"⛔ **No encontré la entrega:** {donde}.")
