@@ -2,13 +2,20 @@
   "practica": "Práctica 10 · Modelo de dominio y diagramas de secuencia",
   "imagenes_minimas": 4,
   "imagenes_en": [
-    "docs/analisis/**/*.png",
-    "docs/analisis/**/*.jpg",
-    "entrega/**/*.png",
-    "entrega/**/*.jpg"
+    "**/*.png",
+    "**/*.jpg",
+    "**/*.jpeg"
   ],
   "archivos_recomendados": [
-    "modelo/*.qea"
+    {
+      "patrones": [
+        "**/*.qea",
+        "**/*.qeax",
+        "**/*.eap",
+        "**/*.eapx"
+      ],
+      "nombre": "el proyecto de Architect (`.qea` o `.eap`) en `modelo/`"
+    }
   ],
   "secciones": [
     {

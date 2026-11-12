@@ -411,7 +411,8 @@ def main():
         return 1
 
     n_pal, ruta, texto, imgs, avisos_lectura = elegido
-    pngs = {p for patron in regla.get("imagenes_en", []) for p in glob.glob(patron, recursive=True)}
+    pngs = {p for patron in regla.get("imagenes_en", []) for p in glob.glob(patron, recursive=True)
+            if not p.startswith(".github")}
     total_imgs = max(imgs, len(pngs))
 
     hallado, lineas = localizar_secciones(texto, regla["secciones"])
@@ -461,9 +462,11 @@ def main():
     out.append("")
 
     sugerencias = list(avisos_lectura)
-    for patron in regla.get("archivos_recomendados", []):
-        if not glob.glob(patron, recursive=True):
-            sugerencias.append(f"Se recomienda subir `{patron}`.")
+    for rec in regla.get("archivos_recomendados", []):
+        patrones = rec["patrones"] if isinstance(rec, dict) else [rec]
+        if not any(glob.glob(p, recursive=True) for p in patrones):
+            nombre = rec.get("nombre") if isinstance(rec, dict) else f"`{rec}`"
+            sugerencias.append(f"Se recomienda subir {nombre}.")
     sugerencias.append("Personas de la organización: por su cargo, rol o apodo, no por su nombre completo.")
     out.append("**Para revisar:**")
     out += [f"- {a}" for a in sugerencias]
