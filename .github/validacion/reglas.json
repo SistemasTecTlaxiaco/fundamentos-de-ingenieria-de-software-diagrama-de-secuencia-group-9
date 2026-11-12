@@ -1,23 +1,18 @@
 {
   "practica": "Práctica 10 · Modelo de dominio y diagramas de secuencia",
-  "carpeta": "entrega",
-  "nombres": [
-    "practica-10.md",
-    "practica-10.pdf"
-  ],
   "imagenes_minimas": 4,
   "imagenes_en": [
-    "docs/analisis/*.png",
-    "entrega/img/*.png"
+    "docs/analisis/**/*.png",
+    "docs/analisis/**/*.jpg",
+    "entrega/**/*.png",
+    "entrega/**/*.jpg"
   ],
-  "archivos_requeridos": [],
   "archivos_recomendados": [
     "modelo/*.qea"
   ],
   "secciones": [
     {
       "criterio": "1. Conceptos del dominio",
-      "titulo": "Conceptos del dominio",
       "min_palabras": 40,
       "comprobaciones": [
         {
@@ -31,11 +26,16 @@
           "patron": "^\\s*\\|?\\s*(pantalla|controlador|base ?de ?datos|interfaz)\\w*\\s*\\|",
           "mensaje": "Aparece una clase de software en la tabla de conceptos; el dominio solo lleva conceptos de la organización."
         }
+      ],
+      "titulos": [
+        "Conceptos del dominio",
+        "Modelo de dominio",
+        "Conceptos",
+        "Glosario del dominio"
       ]
     },
     {
       "criterio": "2. Atributos y asociaciones del dominio",
-      "titulo": "Atributos y asociaciones del dominio",
       "min_palabras": 20,
       "comprobaciones": [
         {
@@ -49,11 +49,16 @@
           "patron": "\\b[a-z]\\w*\\s*\\([^)\\n]*\\)",
           "mensaje": "Parece haber operaciones; el modelo de dominio no lleva operaciones."
         }
+      ],
+      "titulos": [
+        "Atributos y asociaciones del dominio",
+        "Modelo de dominio",
+        "Asociaciones del dominio",
+        "Atributos del dominio"
       ]
     },
     {
       "criterio": "3. Escenarios tomados de los casos de uso",
-      "titulo": "Escenarios",
       "min_palabras": 30,
       "comprobaciones": [
         {
@@ -71,11 +76,16 @@
           "min": 1,
           "mensaje": "Indiquen qué flujo alterno se modela."
         }
+      ],
+      "titulos": [
+        "Escenarios",
+        "Escenarios tomados de los casos de uso",
+        "Escenarios de casos de uso",
+        "Casos de uso"
       ]
     },
     {
       "criterio": "4. Estructura de la secuencia",
-      "titulo": "Diagramas de secuencia",
       "min_palabras": 30,
       "comprobaciones": [
         {
@@ -93,11 +103,16 @@
           "min": 1,
           "mensaje": "Identifiquen las clases entidad de cada diagrama."
         }
+      ],
+      "titulos": [
+        "Diagramas de secuencia",
+        "Estructura de la secuencia",
+        "Secuencias",
+        "Diagrama de secuencia"
       ]
     },
     {
       "criterio": "5. Fragmentos combinados",
-      "titulo": "Fragmentos",
       "min_palabras": 15,
       "comprobaciones": [
         {
@@ -110,11 +125,15 @@
           "min": 1,
           "mensaje": "Escriban la condición de guarda entre corchetes, como [kilos ≤ 0] o [else]."
         }
+      ],
+      "titulos": [
+        "Fragmentos",
+        "Fragmentos combinados",
+        "Flujos alternos"
       ]
     },
     {
       "criterio": "6. Consistencia con el diagrama de clases",
-      "titulo": "Consistencia con el diagrama de clases",
       "min_palabras": 30,
       "comprobaciones": [
         {
@@ -122,11 +141,15 @@
           "min": 3,
           "mensaje": "Listen los mensajes con la operación de la clase que los recibe, como sumar(kilos) en Inventario (al menos 3)."
         }
+      ],
+      "titulos": [
+        "Consistencia con el diagrama de clases",
+        "Consistencia",
+        "Actualización del diagrama de clases"
       ]
     },
     {
       "criterio": "7. Integración de negocio y requisitos",
-      "titulo": "Integracion de negocio y requisitos",
       "min_palabras": 60,
       "comprobaciones": [
         {
@@ -144,11 +167,16 @@
           "min": 1,
           "mensaje": "Liguen los modelos con los casos de uso."
         }
+      ],
+      "titulos": [
+        "Integración de negocio y requisitos",
+        "Documento integrador",
+        "Integración",
+        "Trazabilidad"
       ]
     },
     {
       "criterio": "8. Modelo de arquitectura en UML",
-      "titulo": "Modelo de arquitectura",
       "min_palabras": 30,
       "comprobaciones": [
         {
@@ -177,11 +205,16 @@
           "aviso": true,
           "mensaje": "Marquen qué es real y qué está simulado."
         }
+      ],
+      "titulos": [
+        "Modelo de arquitectura",
+        "Modelo de arquitectura en UML",
+        "Arquitectura",
+        "Diagrama de paquetes"
       ]
     },
     {
       "criterio": "9. Presentación y validación con la organización",
-      "titulo": "Validacion con la organizacion",
       "min_palabras": 50,
       "comprobaciones": [
         {
@@ -204,11 +237,20 @@
           "min": 1,
           "mensaje": "Anoten qué cambió después de escuchar a la organización (o que no hubo cambios)."
         }
-      ]
+      ],
+      "titulos": [
+        "Validación con la organización",
+        "Presentación y validación con la organización",
+        "Presentación y validación",
+        "Presentación a la organización",
+        "Minuta",
+        "Validación"
+      ],
+      "al_final": true,
+      "al_final_msg": "Se califica al final, después de presentar el modelo a la organización: fecha, minuta con cargos, aprobación y qué cambió."
     },
     {
       "criterio": "10. Entrega, revisión cruzada y trabajo en equipo",
-      "titulo": "Revision cruzada",
       "min_palabras": 30,
       "comprobaciones": [
         {
@@ -222,17 +264,38 @@
           "mensaje": "Anoten qué corrigieron o justificaron por cada observación."
         },
         {
-          "patron": "#\\d+",
-          "min": 2,
-          "mensaje": "Indiquen con su número qué pull requests abrió y revisó cada integrante (por ejemplo, #3)."
-        },
-        {
           "patron": "consistencia",
           "min": 1,
           "aviso": true,
           "mensaje": "Indiquen que se usó la lista de consistencia."
         }
-      ]
+      ],
+      "titulos": [
+        "Revisión cruzada",
+        "Entrega, revisión cruzada y trabajo en equipo",
+        "Trabajo en equipo",
+        "Revisión entre equipos",
+        "Retroalimentación"
+      ],
+      "github": "revision",
+      "buscar_en_todo": false
     }
-  ]
+  ],
+  "buscar": [
+    "entrega/**/*.pdf",
+    "entrega/**/*.docx",
+    "entrega/**/*.md",
+    "*.pdf",
+    "*.docx",
+    "docs/**/*.pdf",
+    "docs/**/*.docx"
+  ],
+  "ignorar": [
+    "guia-de-entrega.md",
+    "leeme.md",
+    "plantilla-practica-10.docx",
+    "readme.md",
+    "rubrica.md"
+  ],
+  "palabras_minimas_entrega": 150
 }
